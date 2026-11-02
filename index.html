@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#171226" />
+  <title>你是霍格沃茨哪个学院？</title>
+
+  <meta name="description" content="16 道题，让分院帽看穿你的灵魂，测出你属于哪个霍格沃茨学院。" />
+  <meta property="og:title" content="你是霍格沃茨哪个学院？" />
+  <meta property="og:description" content="16 道题，让分院帽看穿你的灵魂，测出你属于哪个霍格沃茨学院。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chenzyishere.github.io/xhs-harry-potter-test/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23171226'/><text x='50' y='62' font-size='52' text-anchor='middle'>🎩</text></svg>" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- 解锁页 -->
+    <section class="screen is-active" id="lock-screen">
+      <div class="lock-inner">
+        <div class="start-seal">分<br>院</div>
+        <h1 class="lock-title">输入验证码<br>开启分院仪式</h1>
+        <p class="lock-sub" id="lock-hint">购买后获取验证码，输入即可开始</p>
+        <input class="lock-input" id="unlock-input" type="text" inputmode="text" placeholder="请输入验证码" maxlength="24" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+        <div class="lock-error" id="unlock-error"></div>
+        <button class="btn-primary" id="unlock-btn">开始分院</button>
+        <p class="lock-note">验证码不区分大小写，注意不要有多余空格</p>
+      </div>
+    </section>
+
+    <!-- 开始页 -->
+    <section class="screen" id="start-screen">
+      <div class="start-inner">
+        <div class="start-badge">魔法分院帽</div>
+        <div class="start-seal">分<br>院</div>
+        <h1 class="start-title">你是霍格沃茨<br>哪个学院？</h1>
+        <p class="start-sub">16 道题 · 约 3 分钟 · 让分院帽看穿你的灵魂</p>
+        <button class="btn-primary" id="start-btn">戴上分院帽</button>
+        <p class="start-foot" id="start-foot">已有 6,666 名巫师完成分院</p>
+      </div>
+    </section>
+
+    <!-- 做题页 -->
+    <section class="screen" id="quiz-screen">
+      <div class="quiz-inner">
+        <header class="quiz-head">
+          <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+          <div class="progress-text"><span id="q-current">1</span> / <span id="q-total">16</span></div>
+        </header>
+        <div class="question-wrap">
+          <h2 class="question-text" id="question-text"></h2>
+          <div class="options" id="options"></div>
+          <div class="quiz-nav">
+            <button class="btn-nav btn-prev" id="prev-btn">上一题</button>
+            <button class="btn-nav btn-next" id="next-btn" disabled>下一题</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section class="screen" id="result-screen">
+      <div class="result-inner">
+        <p class="result-kicker">分院帽说，你属于</p>
+        <div class="result-name-row">
+          <h1 class="result-name" id="result-name"></h1>
+          <span class="result-seal" id="result-seal"></span>
+        </div>
+        <div class="result-english" id="result-english"></div>
+        <div class="result-title" id="result-title"></div>
+        <div class="result-tagline" id="result-tagline"></div>
+        <div class="result-house-meta" id="result-house-meta"></div>
+
+        <div class="radar-wrap">
+          <canvas id="radar-canvas" width="600" height="600"></canvas>
+          <div class="radar-legend" id="radar-legend"></div>
+        </div>
+
+        <ul class="result-traits" id="result-traits"></ul>
+        <div class="result-advice" id="result-advice"></div>
+        <div class="result-actions">
+          <button class="btn-primary" id="save-btn">保存分院卡</button>
+          <button class="btn-secondary" id="copy-btn">复制晒单文案</button>
+        </div>
+        <button class="btn-ghost" id="retake-btn">再测一次</button>
+        <p class="result-tip">生成分院卡后可保存，分享到小红书</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 轻提示 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 结果卡预览（iOS 无法直接下载，长按保存） -->
+  <div class="save-overlay" id="save-overlay">
+    <div class="save-panel">
+      <p class="save-hint">长按图片保存到相册</p>
+      <img class="save-img" id="save-img" alt="我的霍格沃茨分院卡" />
+      <button class="btn-ghost save-close" id="save-close">关闭</button>
+    </div>
+  </div>
+
+  <!-- 分享卡（Canvas 导出 1080×1440） -->
+  <canvas id="share-canvas" width="1080" height="1440" style="display:none"></canvas>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
