@@ -26,7 +26,7 @@
 window.QUIZ_DATA = {
   title: "你是霍格沃茨哪个学院？",
   subtitle: "16 道题，让分院帽看穿你的灵魂",
-  brand: "魔法分院帽",
+  brand: "虾说说",
   duration: "约 3 分钟",
   socialProof: "已有 6,666 名巫师完成分院",
 
