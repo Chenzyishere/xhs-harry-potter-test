@@ -41,6 +41,7 @@
   const nextBtn = $("next-btn");
 
   const canvas = $("share-canvas");
+  const hat = $("sorting-hat");
 
   // ---------- 屏幕切换 ----------
   function show(id) {
@@ -163,6 +164,7 @@
     current = 0;
     result = null;
     clearProgress();
+    if (hat) hat.classList.remove("is-thinking", "is-nod");
     show("quiz-screen");
     renderQuestion();
   });
@@ -195,6 +197,15 @@
     btns.forEach((b, i) => b.classList.toggle("is-picked", i === index));
     updateNav();
     saveProgress();
+    nodHat();
+  }
+
+  // 分院帽点头（选中选项时）
+  function nodHat() {
+    if (!hat) return;
+    hat.classList.remove("is-nod");
+    void hat.offsetWidth;   // 强制重排，让动画可重复触发
+    hat.classList.add("is-nod");
   }
 
   // 更新导航按钮状态与文案
@@ -217,9 +228,20 @@
       renderQuestion();
       saveProgress();
     } else {
-      finish();
+      thinkThenFinish();
     }
   });
+
+  // 提交前分院帽低头沉思 0.9s
+  function thinkThenFinish() {
+    nextBtn.disabled = true;
+    progressBar.style.width = "100%";
+    if (hat) {
+      hat.classList.remove("is-nod");
+      hat.classList.add("is-thinking");
+    }
+    setTimeout(finish, 900);
+  }
 
   // ---------- 结果匹配 ----------
   function match(scores) {
