@@ -53,20 +53,22 @@ xhs-harry-potter-test/
 
 ```js
 unlock: {
-  masterCode: "9900",              // 主密码，你自己测试用，永久有效
-  salt: "HOGW-2026-xhs-sorting",   // 校验盐值
-  prefix: "HOGW",                  // 验证码前缀
-  hint: "购买后获取验证码，输入即可开始",
+  masterCode: "9900",              // 自己测试，不要写进自动发货
+  shopCode: "FENYUAN",             // 小红书自动发货用的店铺密码
+  salt: "HOGW-2026-xhs-sorting",   // 卡密库校验盐
+  prefix: "HOGW",
+  pageUrl: "https://chenzyishere.github.io/xhs-harry-potter-test/",
+  hint: "下单后自动发货，把订单消息里的验证码填到这里",
 }
 ```
 
 打开链接先输验证码才能进入测试。验证通过后会在 `localStorage` 记一个标记，同一台设备不用重复输入。
 
-验证码格式：`HOGW` + 6 位随机字符 + 1 位校验位，例如 `HOGW7K2M9X3`。
+**发货方式（默认）**：小红书商品后台打开「自动发货」，把 [tools/generate-codes.html](tools/generate-codes.html) 里生成的文案贴进去。所有买家收到同一条：链接 + 店铺密码 `FENYUAN`。不用人工发码。
 
-**发码方式**：打开 [tools/generate-codes.html](tools/generate-codes.html)（本地文件，已加入 `.gitignore`，不会上传），填入与 `data.js` 一致的 salt 和 prefix，批量生成并下载 txt。卖一单发一个码。
+两个商品请用不同 `shopCode`，避免买分院帽也能解开历史人物测试。密码泄露了就改 `shopCode`，同步更新自动发货文案。
 
-**注意**：`tools/` 目录不会被推到 GitHub，只在你本地。换电脑时记得单独备份。
+**备用卡密**：如果以后改成「一单一码」，同一页可以批量生成校验码，导入卡密库。页面三种码都认：店铺密码、测试主密码、卡密。
 
 ### 四维显示名（dimensions）
 
@@ -85,7 +87,8 @@ dimensions: [
 
 ```js
 share: {
-  template: "分院帽说：我属于{name}🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的霍格沃茨学院，你也来分院？\n\n#霍格沃茨 #分院帽 #性格测试"
+  template: "分院帽说：我是{persona}（{name}）🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的学院人格，你也来分院？\n\n#性格测试 #人格图鉴 #内耗",
+  templatePaid: "学院测试说：我是{persona}（{name}）🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的学院人格，你也来试试？\n\n#性格测试 #人格图鉴 #内耗"
 }
 ```
 
@@ -97,7 +100,9 @@ share: {
 {
   id: "gryffindor",       // 唯一标识
   name: "格兰芬多",        // 学院中文名
+  nameGeneric: "勇气学院", // 收费模式用的通用词
   english: "Gryffindor",  // 学院英文名
+  persona: "勇往直前型",   // 人格标签（账号统一语汇）
   title: "勇气与胆识",     // 定调标签
   tagline: "我们纵身跃入火海，因为那里有值得守护的人",  // 金句
   seal: "勇气",           // 徽章二字
@@ -160,7 +165,7 @@ node tools/verify-reach.js
 
 ## 合规提醒（重要）
 
-哈利·波特 / 霍格沃茨是华纳兄弟的注册商标，商业售卖存在版权风险。参考 `.claude/skills/xhs-harry-potter-test/references/launch-playbook.md` 的「合规红线」章节：免费引流自用问题不大，一旦挂商品收费，建议把「霍格沃茨 / 分院帽」等专有名词换成「魔法学院 / 学院测试」这类通用表述，或提前评估法务风险。
+哈利·波特 / 霍格沃茨是华纳兄弟的注册商标，商业售卖存在版权风险。把 `js/data.js` 里的 `paidMode` 改成 `true`，页面、结果卡、晒单文案会切到「魔法学院 / 勇气学院」等通用词。免费引流阶段保持 `false`。
 
 ## 后续计划
 

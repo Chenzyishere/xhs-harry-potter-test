@@ -13,10 +13,30 @@
 
 window.QUIZ_DATA = {
   title: "你是霍格沃茨哪个学院？",
-  subtitle: "16 道题，让分院帽看穿你的灵魂",
+  titleHtml: "你是霍格沃茨<br>哪个学院？",
+  subtitle: "让分院帽看穿你的灵魂",
   brand: "虾说说",
   duration: "约 3 分钟",
   socialProof: "已有 6,666 名巫师完成分院",
+  startBtn: "戴上分院帽",
+  lockTitleHtml: "输入验证码<br>开启分院仪式",
+  cardKicker: "霍 格 沃 茨 分 院 帽",
+  cardFooter: "测一测你属于哪个霍格沃茨学院",
+  disclaimer: "本测试仅供娱乐，结果不构成性格鉴定",
+  statsKey: "hogw_stats",
+
+  // 挂商品收费前改为 true：页面、结果卡、晒单文案全部切到通用词
+  paidMode: false,
+  generic: {
+    title: "你是哪个魔法学院？",
+    titleHtml: "你是哪个<br>魔法学院？",
+    subtitle: "看穿你的学院人格",
+    socialProof: "已有 6,666 人完成学院测试",
+    startBtn: "开始测试",
+    lockTitleHtml: "输入验证码<br>开启学院测试",
+    cardKicker: "学 院 人 格 测 试",
+    cardFooter: "测一测你属于哪个魔法学院"
+  },
 
   // 四维显示名（雷达图用）
   dimensions: [
@@ -28,25 +48,31 @@ window.QUIZ_DATA = {
 
   // 晒单文案模板：{name} {english} {title} {tagline} {advice} {brand} 会被替换
   share: {
-    template: "分院帽说：我属于{name}🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的霍格沃茨学院，你也来分院？\n\n#霍格沃茨 #分院帽 #性格测试"
+    template: "分院帽说：我是{persona}（{name}）🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的学院人格，你也来分院？\n\n#性格测试 #人格图鉴 #内耗",
+    templatePaid: "学院测试说：我是{persona}（{name}）🪄 {title}\n\n「{tagline}」\n\n16 道题测出你的学院人格，你也来试试？\n\n#性格测试 #人格图鉴 #内耗"
   },
 
   // ---------- 解锁配置 ----------
   unlock: {
-    // 主密码：永久可用，留给你自己测试
+    // 主密码：自己测试，不要写进自动发货
     masterCode: "9900",
-    // 校验盐值：改这个会让所有已发出的验证码失效
+    // 小红书自动发货用的店铺密码（两个商品请分开，避免买一个解锁另一个）
+    shopCode: "FENYUAN",
+    // 卡密库校验盐：改这个会让所有已发出的卡密失效
     salt: "HOGW-2026-xhs-sorting",
-    // 验证码前缀，仅用于展示好看，不参与校验
     prefix: "HOGW",
-    hint: "购买后获取验证码，输入即可开始",
+    pageUrl: "https://chenzyishere.github.io/xhs-harry-potter-test/",
+    hint: "下单后自动发货，把订单消息里的验证码填到这里",
   },
 
   figures: [
     {
       id: "gryffindor",
       name: "格兰芬多",
+      nameGeneric: "勇气学院",
       english: "Gryffindor",
+      englishGeneric: "Valor",
+      persona: "勇往直前型",
       title: "勇气与胆识",
       tagline: "我们纵身跃入火海，因为那里有值得守护的人",
       seal: "勇气",
@@ -54,6 +80,7 @@ window.QUIZ_DATA = {
       vector: [0.8, 0.2, -0.3, 0.4],
       animal: "狮子",
       founder: "戈德里克·格兰芬多",
+      founderGeneric: "勇气学院创始人",
       traits: [
         "冲在最前面，越危险越兴奋",
         "热血讲义气，为朋友两肋插刀",
@@ -64,7 +91,10 @@ window.QUIZ_DATA = {
     {
       id: "slytherin",
       name: "斯莱特林",
+      nameGeneric: "野心学院",
       english: "Slytherin",
+      englishGeneric: "Ambition",
+      persona: "目标导向型",
       title: "野心与精明",
       tagline: "真正的赢家，从不解释自己的野心",
       seal: "野心",
@@ -72,6 +102,7 @@ window.QUIZ_DATA = {
       vector: [0.3, 0.85, 0.4, -0.75],
       animal: "蛇",
       founder: "萨拉查·斯莱特林",
+      founderGeneric: "野心学院创始人",
       traits: [
         "目标感极强，认准了就不撒手",
         "看人极准，天生会读局势",
@@ -82,7 +113,10 @@ window.QUIZ_DATA = {
     {
       id: "ravenclaw",
       name: "拉文克劳",
+      nameGeneric: "智慧学院",
       english: "Ravenclaw",
+      englishGeneric: "Wisdom",
+      persona: "理性思辨型",
       title: "智慧与求知",
       tagline: "聪明是天赋，而智慧是一种选择",
       seal: "智慧",
@@ -90,6 +124,7 @@ window.QUIZ_DATA = {
       vector: [-0.35, -0.3, 0.9, 0.1],
       animal: "鹰",
       founder: "罗伊纳·拉文克劳",
+      founderGeneric: "智慧学院创始人",
       traits: [
         "好奇心爆棚，凡事都要问个所以然",
         "享受一个人安静思考的时光",
@@ -100,7 +135,10 @@ window.QUIZ_DATA = {
     {
       id: "hufflepuff",
       name: "赫奇帕奇",
+      nameGeneric: "忠诚学院",
       english: "Hufflepuff",
+      englishGeneric: "Loyalty",
+      persona: "靠谱务实型",
       title: "忠诚与勤勉",
       tagline: "踏实，是这个世界最稀缺的魔法",
       seal: "忠诚",
@@ -108,6 +146,7 @@ window.QUIZ_DATA = {
       vector: [-0.45, -0.55, -0.15, 0.85],
       animal: "獾",
       founder: "赫尔加·赫奇帕奇",
+      founderGeneric: "忠诚学院创始人",
       traits: [
         "说到做到，答应的事绝不掉链子",
         "不争不抢，但关键时候从不缺席",
